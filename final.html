@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepak C S — Cloud Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f7fafd;
+    --blue-lightest: #eaf4fb;
+    --blue-light: #c8e4f5;
+    --blue-mid: #7ab8d9;
+    --blue-accent: #2e86c1;
+    --blue-deep: #1a5f87;
+    --navy: #0d2b3e;
+    --text-dark: #1a2b38;
+    --text-mid: #3d5a70;
+    --text-soft: #6b8fa6;
+    --border: #d4e8f5;
+    --shadow-sm: 0 2px 12px rgba(46,134,193,0.08);
+    --shadow-md: 0 8px 32px rgba(46,134,193,0.14);
+    --shadow-lg: 0 20px 60px rgba(46,134,193,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: var(--shadow-md); }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-brand span { color: var(--blue-accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue-accent);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue-accent); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: var(--blue-accent);
+    color: var(--white) !important;
+    padding: 0.45rem 1.2rem;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--blue-deep) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 10% 60px;
+    background: linear-gradient(135deg, var(--white) 0%, var(--blue-lightest) 60%, var(--blue-light) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(122,184,217,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; left: 20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(46,134,193,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content { max-width: 760px; position: relative; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--blue-light);
+    color: var(--blue-deep);
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--blue-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 700;
+    line-height: 1.0;
+    color: var(--navy);
+    letter-spacing: -0.03em;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-name .highlight {
+    color: var(--blue-accent);
+    position: relative;
+  }
+
+  .hero-title {
+    font-size: 1.25rem;
+    color: var(--text-mid);
+    font-weight: 400;
+    margin: 1rem 0 1.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-title strong { color: var(--blue-accent); font-weight: 600; }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { text-align: left; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--blue-accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.2rem;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary {
+    background: var(--blue-accent);
+    color: var(--white);
+    box-shadow: 0 4px 16px rgba(46,134,193,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--blue-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(46,134,193,0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--blue-accent);
+    border: 2px solid var(--blue-accent);
+  }
+  .btn-outline:hover {
+    background: var(--blue-lightest);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    background: var(--white);
+    color: var(--text-mid);
+    border: 2px solid var(--border);
+  }
+  .btn-ghost:hover {
+    border-color: var(--blue-mid);
+    color: var(--blue-accent);
+    transform: translateY(-2px);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 90px 10%; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 3rem;
+  }
+  .section-title span { color: var(--blue-accent); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--text-dark); }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .highlight-card {
+    background: var(--blue-lightest);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue-accent);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .highlight-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+  }
+  .highlight-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue-accent);
+    line-height: 1;
+  }
+  .highlight-desc {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    margin-top: 0.2rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--off-white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue-accent), var(--blue-light));
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.55rem;
+    top: 6px;
+    width: 14px; height: 14px;
+    background: var(--blue-accent);
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 3px var(--blue-light);
+  }
+  .timeline-item:first-child .timeline-dot {
+    background: var(--blue-deep);
+    box-shadow: 0 0 0 3px var(--blue-mid);
+  }
+
+  .timeline-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-role {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .timeline-company {
+    font-size: 0.9rem;
+    color: var(--blue-accent);
+    font-weight: 600;
+    margin-top: 0.1rem;
+  }
+  .timeline-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    background: var(--blue-lightest);
+    border: 1.5px solid var(--blue-mid);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+  .current-badge {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    margin-top: 0.8rem;
+  }
+  .timeline-bullets li {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    padding: 0.35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .timeline-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--blue-accent);
+    font-size: 0.7rem;
+    top: 0.45rem;
+  }
+
+  /* ── TECH STACK ── */
+  #skills { background: var(--white); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-category {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .skill-category:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+  .skill-cat-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .skill-cat-title .icon {
+    width: 28px; height: 28px;
+    background: var(--blue-lightest);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tag {
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1.5px solid transparent;
+  }
+  .tag.normal {
+    background: var(--white);
+    color: var(--text-mid);
+    border-color: var(--border);
+  }
+  .tag.normal:hover { background: var(--blue-lightest); border-color: var(--blue-mid); color: var(--blue-deep); }
+  .tag.core {
+    background: var(--blue-lightest);
+    color: var(--blue-deep);
+    border-color: var(--blue-mid);
+    font-weight: 600;
+  }
+  .tag.core:hover { background: var(--blue-light); }
+  .tag.hot {
+    background: #f5f3ff;
+    color: #6d28d9;
+    border-color: #ddd6fe;
+    font-weight: 600;
+  }
+  .tag.hot::after { content: ' 🔥'; font-size: 0.65rem; }
+  .tag.hot:hover { background: #ede9fe; }
+  .tag.ai {
+    background: #fffbeb;
+    color: #b45309;
+    border-color: #fde68a;
+    font-weight: 600;
+  }
+  .tag.ai::after { content: ' ✦'; font-size: 0.65rem; }
+  .tag.ai:hover { background: #fef3c7; }
+  .skill-legend {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .skill-legend-label { font-size: 0.8rem; color: var(--text-soft); font-weight: 500; margin-right: 0.2rem; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--off-white); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: box-shadow 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--blue-accent), var(--blue-mid));
+  }
+  .project-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+  }
+  .project-icon {
+    width: 48px; height: 48px;
+    background: var(--blue-lightest);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .project-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.7rem;
+    line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    flex: 1;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .project-footer { display: flex; flex-direction: column; gap: 0.8rem; }
+  .btn-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.45rem 1rem;
+    border-radius: 7px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    width: fit-content;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-github:hover { background: var(--blue-deep); transform: translateY(-1px); }
+  .project-tag {
+    background: var(--blue-lightest);
+    color: var(--blue-deep);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--white); }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+  .cert-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .cert-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--blue-mid);
+  }
+  .cert-logo {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-align: center;
+    line-height: 1.2;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+  .cert-logo.databricks {
+    background: #ff3621;
+    color: white;
+    font-size: 0.6rem;
+  }
+  .cert-logo.microsoft {
+    background: #0078d4;
+    color: white;
+    font-size: 0.6rem;
+  }
+  .cert-logo.snowflake {
+    background: #29b5e8;
+    color: white;
+    font-size: 0.6rem;
+  }
+  .cert-logo.github {
+    background: #24292f;
+    color: white;
+    font-size: 0.6rem;
+  }
+  .cert-info { flex: 1; min-width: 0; }
+  .cert-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+  .cert-issuer {
+    font-size: 0.77rem;
+    color: var(--text-soft);
+  }
+  .cert-status {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .cert-status.active {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  /* ── ARCHITECTURE ── */
+  #architecture { background: var(--off-white); }
+
+  .arch-diagram {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    overflow-x: auto;
+  }
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    min-width: 700px;
+    justify-content: center;
+  }
+  .arch-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 110px;
+  }
+  .arch-box {
+    background: var(--blue-lightest);
+    border: 1.5px solid var(--blue-light);
+    border-radius: 10px;
+    padding: 0.8rem 0.6rem;
+    text-align: center;
+    width: 100%;
+    transition: all 0.2s;
+  }
+  .arch-box:hover {
+    background: var(--blue-light);
+    border-color: var(--blue-accent);
+    transform: translateY(-2px);
+  }
+  .arch-box-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .arch-box-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    line-height: 1.3;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .arch-box-sub {
+    font-size: 0.65rem;
+    color: var(--text-soft);
+    margin-top: 0.2rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .arch-arrow {
+    font-size: 1.4rem;
+    color: var(--blue-mid);
+    padding: 0 0.2rem;
+    flex-shrink: 0;
+  }
+  .arch-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .arch-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+  }
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue-accent);
+    flex-shrink: 0;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-deep) 100%);
+    text-align: center;
+    padding: 80px 10%;
+  }
+  #contact .section-label { color: var(--blue-light); }
+  #contact .section-title { color: var(--white); margin-bottom: 1rem; }
+  #contact p {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-white {
+    background: var(--white);
+    color: var(--blue-deep) !important;
+    border: 2px solid transparent;
+  }
+  .btn-white:hover {
+    background: var(--blue-lightest);
+    transform: translateY(-2px);
+  }
+  .btn-outline-white {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+  .btn-outline-white:hover {
+    border-color: var(--white);
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    padding: 1.5rem 10%;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+  }
+  footer span { color: rgba(255,255,255,0.6); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 5%; }
+    .nav-links { display: none; }
+    section { padding: 60px 6%; }
+    #hero { padding: 90px 6% 50px; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; }
+    .arch-flow { gap: 0; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--off-white); }
+  ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue-accent); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">Deepak<span>.</span>CS</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Available for Opportunities</div>
+    <h1 class="hero-name">Deepak<br><span class="highlight">C S</span></h1>
+    <p class="hero-title">Cloud <strong>Data Engineer</strong> · EY (Ernst & Young)</p>
+    <p class="hero-tagline">
+      Building intelligent, enterprise-grade data platforms across Azure, Databricks & Snowflake. Bridging AI automation with modern lakehouse architecture — 4+ years of experience.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">4.4+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">95%+</div>
+        <div class="stat-label">Pipeline Accuracy</div>
+      </div>
+    </div>
+    <div class="hero-buttons">
+      <a href="mailto:sureshdeepak556@gmail.com" class="btn btn-primary">📧 Get In Touch</a>
+      <a href="https://www.linkedin.com/in/deepak-c-s-bba93818b" target="_blank" class="btn btn-outline">💼 LinkedIn</a>
+      <a href="Deepak_C_S.pdf" download class="btn btn-ghost">⬇ Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Who I Am</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title">Turning Raw Data<br>into <span>Business Value</span></h2>
+      <p>
+        I'm a <strong>Cloud Data Engineer</strong> with 4.4+ years of hands-on experience building
+        enterprise-scale data pipelines and modernizing legacy systems onto the cloud.
+        Currently at <strong>EY</strong>, I architect multi-layer lakehouse solutions that bridge
+        Databricks, Snowflake, and Azure seamlessly.
+      </p>
+      <p>
+        My foundation at <strong>Infosys</strong> (3.9 years) gave me deep expertise in migrating
+        Mainframe and Informatica ETL systems into Azure — achieving 90%+ pipeline accuracy
+        and 30% reduction in error rates across critical data workloads.
+      </p>
+      <p>
+        What sets me apart: a <strong>zero production failures</strong> record, a sharp eye for
+        edge-cases before they become incidents, and a commitment to on-time delivery — every time.
+      </p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-card reveal">
+        <div class="highlight-num">30%</div>
+        <div class="highlight-desc">Reduction in error rates via Python/PySpark migration at Infosys</div>
+      </div>
+      <div class="highlight-card reveal">
+        <div class="highlight-num">90%+</div>
+        <div class="highlight-desc">Accuracy in incremental & full-reload data pipelines across cloud platforms</div>
+      </div>
+      <div class="highlight-card reveal">
+        <div class="highlight-num">95%</div>
+        <div class="highlight-desc">Precision in ADLS Parquet vs Teradata data comparison pipelines</div>
+      </div>
+      <div class="highlight-card reveal">
+        <div class="highlight-num">100%</div>
+        <div class="highlight-desc">On-time migration deliverables with zero production failures at EY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career Journey</div>
+  <h2 class="section-title">Work <span>Experience</span></h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div>
+          <div class="timeline-role">Data Engineer <span class="current-badge">Current</span></div>
+          <div class="timeline-company">EY · Ernst & Young</div>
+        </div>
+        <div class="timeline-period">Apr 2025 – Present</div>
+      </div>
+      <ul class="timeline-bullets">
+        <li>Architecting a multi-layer modern lakehouse: ingesting from Oracle, DB2, Avro, REST API & Parquet into Databricks External Delta Tables (Stage → Analytics layers on ADLS).</li>
+        <li>Implementing zero-copy Snowflake External Iceberg Tables pointing to the same ADLS locations, eliminating data duplication across platforms.</li>
+        <li>Building DIM & FACT tables in Snowflake using Matillion ETL for enterprise BI consumption and reporting.</li>
+        <li>Orchestrating end-to-end job dependencies across Databricks and Matillion using Autosys scheduler.</li>
+        <li>Delivering query and pipeline optimizations for massive datasets — significantly reducing job run times.</li>
+        <li><strong>0 production failures</strong> and 100% on-time delivery across all migration workstreams.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div>
+          <div class="timeline-role">Technology Analyst</div>
+          <div class="timeline-company">Infosys</div>
+        </div>
+        <div class="timeline-period">Oct 2024 – Apr 2025</div>
+      </div>
+      <ul class="timeline-bullets">
+        <li>Managed complex scheduling in Control-M, ensuring accurate job dependencies and seamless execution across enterprise pipelines.</li>
+        <li>Led migration of legacy Azure jobs into a standardized Python/PySpark framework, reducing error rates by <strong>30%</strong> through thorough testing and bug resolution.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div>
+          <div class="timeline-role">Senior Systems Engineer</div>
+          <div class="timeline-company">Infosys</div>
+        </div>
+        <div class="timeline-period">Feb 2022 – Oct 2024</div>
+      </div>
+      <ul class="timeline-bullets">
+        <li>Led migration of Mainframe and Informatica Legacy ETL into Azure Cloud ETL using data ingestion frameworks.</li>
+        <li>Developed incremental (watermark-based) and full-reload pipelines from Teradata, SAP HANA, DB2 & Oracle into Databricks Delta tables — achieving <strong>90%+ accuracy</strong>.</li>
+        <li>Designed automated data validation framework between Azure and Teradata post-ingestion — automating <strong>90%</strong> of validation workload.</li>
+        <li>Built pipeline for ADLS Parquet vs Teradata comparison delivering <strong>95% precision</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div>
+          <div class="timeline-role">Systems Engineer</div>
+          <div class="timeline-company">Infosys</div>
+        </div>
+        <div class="timeline-period">Dec 2021 – Feb 2022</div>
+      </div>
+      <ul class="timeline-bullets">
+        <li>Analysed critical Informatica workflows, achieving a <strong>50%</strong> enhancement in system reliability.</li>
+        <li>Delivered efficient report-making, improving productivity and client satisfaction by <strong>20%</strong>.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Arsenal</div>
+  <h2 class="section-title">Skills & <span>Tech Stack</span></h2>
+  <div class="skill-legend">
+    <span class="skill-legend-label">Legend:</span>
+    <span class="tag ai">AI / Gen-AI</span>
+    <span class="tag hot">Trending</span>
+    <span class="tag core">Core Strength</span>
+    <span class="tag normal">Supporting</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">🤖</span> AI & Agents</div>
+      <div class="skill-tags">
+        <span class="tag ai">Multi-Agent Systems</span>
+        <span class="tag ai">GitHub Copilot</span>
+        <span class="tag ai">MCP Protocol</span>
+        <span class="tag ai">AI Automation</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">💻</span> Programming</div>
+      <div class="skill-tags">
+        <span class="tag core">Python</span>
+        <span class="tag hot">PySpark</span>
+        <span class="tag core">SQL</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">☁️</span> Cloud Platforms</div>
+      <div class="skill-tags">
+        <span class="tag hot">Databricks</span>
+        <span class="tag hot">Snowflake</span>
+        <span class="tag core">Azure Data Factory</span>
+        <span class="tag hot">Microsoft Fabric</span>
+        <span class="tag core">ADLS</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">⚡</span> Big Data & Streaming</div>
+      <div class="skill-tags">
+        <span class="tag hot">Apache Spark</span>
+        <span class="tag hot">Spark Structured Streaming</span>
+        <span class="tag hot">Delta Lake</span>
+        <span class="tag hot">Apache Iceberg</span>
+        <span class="tag core">Autoloader</span>
+        <span class="tag normal">Hadoop</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">🛠️</span> ETL & Orchestration</div>
+      <div class="skill-tags">
+        <span class="tag hot">Matillion ETL</span>
+        <span class="tag core">Autosys</span>
+        <span class="tag core">Control-M</span>
+        <span class="tag core">ETL/ELT Pipelines</span>
+        <span class="tag normal">Informatica</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">🗄️</span> Databases</div>
+      <div class="skill-tags">
+        <span class="tag normal">Teradata</span>
+        <span class="tag normal">Oracle</span>
+        <span class="tag normal">DB2</span>
+        <span class="tag normal">SAP HANA</span>
+        <span class="tag normal">MS SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">📁</span> Data Formats</div>
+      <div class="skill-tags">
+        <span class="tag hot">Parquet</span>
+        <span class="tag hot">Delta Tables</span>
+        <span class="tag hot">Apache Iceberg</span>
+        <span class="tag normal">Avro</span>
+        <span class="tag normal">REST API</span>
+        <span class="tag normal">XML</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title"><span class="icon">🧠</span> Strengths</div>
+      <div class="skill-tags">
+        <span class="tag core">Edge-case Analysis</span>
+        <span class="tag core">Critical Thinking</span>
+        <span class="tag hot">Power BI</span>
+        <span class="tag normal">Problem Solving</span>
+        <span class="tag normal">Collaboration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">What I've Built</div>
+  <h2 class="section-title">Featured <span>Projects</span></h2>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-icon">🤖</div>
+      <div class="project-title">AI Multi-Agent UAT Automation System
+        <span style="font-size:0.68rem;background:#fffbeb;color:#b45309;padding:0.12rem 0.45rem;border-radius:4px;border:1px solid #fde68a;margin-left:0.4rem;font-family:'DM Sans',sans-serif;font-weight:700;vertical-align:middle;">AI ✦</span>
+      </div>
+      <p class="project-desc">
+        Designed and built an AI-powered multi-agent system at EY that fully automates the UAT SQL validation cycle — previously 1–2 weeks of manual effort. The system understands the complete data pipeline, pulls business requirements from <strong>JIRA via MCP</strong>, auto-generates SQL with expected results, executes on Databricks & Snowflake, cross-validates outputs and produces a final report — significantly cutting business cost and accelerating go-live.
+      </p>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="project-tag">Multi-Agent AI</span>
+          <span class="project-tag">MCP</span>
+          <span class="project-tag">JIRA Integration</span>
+          <span class="project-tag">Databricks</span>
+          <span class="project-tag">Snowflake</span>
+          <span class="project-tag">SQL Automation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">⚡</div>
+      <div class="project-title">XML File Processing — Databricks Hackathon</div>
+      <p class="project-desc">
+        Leveraged Spark Structured Streaming and Autoloader for real-time transformation of XML medical
+        records into DataFrames with <strong>98% near real-time accuracy</strong>. Created interactive
+        dashboards using Databricks SQL Warehouse with 95% precision and automated saturation alerts.
+      </p>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="project-tag">Spark Streaming</span>
+          <span class="project-tag">Autoloader</span>
+          <span class="project-tag">Databricks SQL</span>
+          <span class="project-tag">XML</span>
+          <span class="project-tag">PySpark</span>
+        </div>
+        <a href="https://github.com/deepak-datahandling/DataEngineeringSolutions/tree/main/xml-data-streaming" target="_blank" class="btn-github">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">✅</div>
+      <div class="project-title">Delta Table Validation Automation</div>
+      <p class="project-desc">
+        Built an automation framework for data validation between Databricks Delta tables across DEV and PROD
+        environments using PySpark. Leveraged DataFrame operations and minus queries for consistency checks,
+        with parallel cluster-based validations running simultaneously in DEV.
+      </p>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="project-tag">PySpark</span>
+          <span class="project-tag">Delta Lake</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Databricks</span>
+        </div>
+        <a href="https://github.com/deepak-datahandling/DataEngineeringSolutions/tree/main/cross-env-delta-validation" target="_blank" class="btn-github">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-icon">🌤️</div>
+      <div class="project-title">Weather Data Analytics — Microsoft Fabric</div>
+      <p class="project-desc">
+        End-to-end weather analytics pipeline using Microsoft Fabric for real-time data collection,
+        processing and visualization. Integrated Azure Data Factory, PySpark, Spark Structured Streaming,
+        SQL and Power BI to deliver insightful dashboards and data models.
+      </p>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="project-tag">Microsoft Fabric</span>
+          <span class="project-tag">Azure Data Factory</span>
+          <span class="project-tag">Power BI</span>
+          <span class="project-tag">PySpark</span>
+          <span class="project-tag">SQL</span>
+        </div>
+        <a href="https://github.com/deepak-datahandling/DataEngineeringSolutions/tree/main/weather-analytics" target="_blank" class="btn-github">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifications & <span>Badges</span></h2>
+  <div class="certs-grid">
+
+    <a href="#" class="cert-card reveal">
+      <div class="cert-logo databricks">DATA<br>BRICKS</div>
+      <div class="cert-info">
+        <div class="cert-name">Data Engineer Professional</div>
+        <div class="cert-issuer">Databricks · Most Advanced Level</div>
+      </div>
+      <span class="cert-status active">Active</span>
+    </a>
+
+    <a href="#" class="cert-card reveal">
+      <div class="cert-logo snowflake">SNOW<br>FLAKE</div>
+      <div class="cert-info">
+        <div class="cert-name">SnowPro Core Certification</div>
+        <div class="cert-issuer">Snowflake</div>
+      </div>
+      <span class="cert-status active">Active</span>
+    </a>
+
+    <a href="#" class="cert-card reveal">
+      <div class="cert-logo microsoft">MSFT</div>
+      <div class="cert-info">
+        <div class="cert-name">Fabric Analytics Engineer Associate (DP-600)</div>
+        <div class="cert-issuer">Microsoft Azure</div>
+      </div>
+      <span class="cert-status active">Active</span>
+    </a>
+
+    <a href="#" class="cert-card reveal">
+      <div class="cert-logo github">GH<br>300</div>
+      <div class="cert-info">
+        <div class="cert-name">GitHub Copilot (GH-300)</div>
+        <div class="cert-issuer">GitHub · AI-Powered Development</div>
+      </div>
+      <span class="cert-status active">Active</span>
+    </a>
+
+    <a href="#" class="cert-card reveal">
+      <div class="cert-logo microsoft">MSFT</div>
+      <div class="cert-info">
+        <div class="cert-name">Azure Data Fundamentals (DP-900)</div>
+        <div class="cert-issuer">Microsoft Azure</div>
+      </div>
+      <span class="cert-status active">Active</span>
+    </a>
+
+    <a href="#" class="cert-card reveal">
+      <div class="cert-logo microsoft">MSFT</div>
+      <div class="cert-info">
+        <div class="cert-name">Azure Fundamentals (AZ-900)</div>
+        <div class="cert-issuer">Microsoft Azure</div>
+      </div>
+      <span class="cert-status active">Active</span>
+    </a>
+
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="section-title" style="margin-bottom:1rem;">Open to <span style="color:var(--blue-light)">New Opportunities</span></h2>
+  <p>Whether you're looking for a Data Engineer for your next big migration, a lakehouse architect, or just want to connect — my inbox is always open.</p>
+  <div class="contact-buttons">
+    <a href="mailto:sureshdeepak556@gmail.com" class="btn btn-white">📧 sureshdeepak556@gmail.com</a>
+    <a href="https://www.linkedin.com/in/deepak-c-s-bba93818b" target="_blank" class="btn btn-outline-white">💼 LinkedIn Profile</a>
+    <a href="Deepak_C_S.pdf" download class="btn btn-outline-white">⬇ Download Resume</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & built by <span>Deepak C S</span> · Cloud Data Engineer · Tamil Nadu, India</p>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Intersection Observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // Staggered reveal for groups
+  document.querySelectorAll('.skills-grid .skill-category, .certs-grid .cert-card, .projects-grid .project-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 60}ms`;
+  });
+</script>
+</body>
+</html>
